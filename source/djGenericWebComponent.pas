@@ -133,10 +133,7 @@ end;
 procedure TdjGenericWebComponent.Trace(const S: string);
 begin
   {$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace(S);
-  end;
+  Logger.Trace(S);
   {$ENDIF DARAJA_LOGGING}
 end;
 
