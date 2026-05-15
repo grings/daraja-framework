@@ -254,7 +254,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjWebComponentHandler.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjWebComponentHandler);
   {$ENDIF DARAJA_LOGGING}
 
   FWebComponentHolders := TdjWebComponentHolders.Create(TComparer<TdjWebComponentHolder>.Default); // todo: add a constructor to avoid repeated TComparer code

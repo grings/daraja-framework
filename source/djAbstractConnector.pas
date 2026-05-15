@@ -128,7 +128,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjAbstractConnector.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjAbstractConnector);
   {$ENDIF DARAJA_LOGGING}
 
   Trace('Configuring');

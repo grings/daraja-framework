@@ -173,7 +173,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjServer.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjServer);
   {$ENDIF DARAJA_LOGGING}
 
   FDefaultHost := DEFAULT_BINDING_IP;

@@ -100,7 +100,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjServerBase.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjServerBase);
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF LOG_CREATE}

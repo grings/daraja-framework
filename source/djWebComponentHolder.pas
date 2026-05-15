@@ -126,7 +126,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjWebComponentHolder.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjWebComponentHolder);
   {$ENDIF DARAJA_LOGGING}
 
   FConfig := TdjWebComponentConfig.Create;

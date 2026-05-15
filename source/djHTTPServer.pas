@@ -103,7 +103,7 @@ begin
 
   // logging -----------------------------------------------------------------
 {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjHTTPServer.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjHTTPServer);
 {$ENDIF DARAJA_LOGGING}
 
   Trace('Configuring HTTP server');

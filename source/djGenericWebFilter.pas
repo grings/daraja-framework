@@ -48,7 +48,7 @@ type
 
   {*
    * A generic web filter class implementing the IWebFilter interface.
-   * 
+   *
    * This class provides functionality to filter web requests or responses
    * as part of the Daraja framework.
    *}
@@ -107,7 +107,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjGenericWebFilter.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjGenericWebFilter);
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF LOG_CREATE}

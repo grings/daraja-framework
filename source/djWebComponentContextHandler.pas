@@ -162,7 +162,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjWebComponentContextHandler.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjWebComponentContextHandler);
   {$ENDIF DARAJA_LOGGING}
 
   Self.AutoStartSession := Sessions;

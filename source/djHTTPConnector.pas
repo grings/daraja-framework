@@ -95,7 +95,7 @@ constructor TdjHTTPConnector.Create(const Handler: IHandler);
 begin
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjHTTPConnector.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjHTTPConnector);
   {$ENDIF DARAJA_LOGGING}
 
   inherited Create(Handler);

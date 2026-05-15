@@ -165,7 +165,7 @@ begin
   inherited Create;
 
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjWebComponent.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjWebComponent);
   {$ENDIF DARAJA_LOGGING}
 
   
