@@ -147,22 +147,14 @@ end;
 procedure TdjGenericWebFilter.Trace(const S: string);
 begin
   {$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace(S);
-  end;
+  Logger.Trace(S);
   {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjGenericWebFilter.DoFilter(Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse; const Chain: IWebFilterChain);
 begin
-  {$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace('DoFilter');
-  end;
-  {$ENDIF DARAJA_LOGGING}
+  Trace('DoFilter');
 end;
 
 function TdjGenericWebFilter.GetWebFilterConfig: IWebFilterConfig;
@@ -177,12 +169,7 @@ end;
 
 procedure TdjGenericWebFilter.DestroyFilter;
 begin
-  {$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace('DestroyFilter');
-  end;
-  {$ENDIF DARAJA_LOGGING}
+  Trace('DestroyFilter');
 end;
 
 end.

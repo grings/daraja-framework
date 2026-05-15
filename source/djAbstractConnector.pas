@@ -57,13 +57,6 @@ type
     FHost: string;
 
   private
-    {*
-     * Log a trace message.
-     *
-     * @param S The message to log.
-     *}
-    procedure Trace(const S: string);
-
     procedure SetPort(Value: Integer);
     procedure SetHost(const Value: string);
     function GetPort: Integer;
@@ -132,8 +125,6 @@ begin
   Logger := TdjLoggerFactory.GetLogger(TdjAbstractConnector);
   {$ENDIF DARAJA_LOGGING}
 
-  Trace('Configuring');
-
   Self.Handler := Handler;
 end;
 
@@ -145,16 +136,6 @@ begin
   end;
 
   inherited;
-end;
-
-procedure TdjAbstractConnector.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace(S);
-  end;
-  {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjAbstractConnector.DoStart;

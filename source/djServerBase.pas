@@ -127,12 +127,9 @@ end;
 
 procedure TdjServerBase.Trace(const S: string);
 begin
-{$IFDEF DARAJA_LOGGING}
-  if Logger.IsTraceEnabled then
-  begin
-    Logger.Trace(S);
-  end;
-{$ENDIF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace(S);
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjServerBase.DoStart;
