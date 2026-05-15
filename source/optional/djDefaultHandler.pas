@@ -87,7 +87,7 @@ begin
   inherited Create;
 
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjDefaultHandler.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjDefaultHandler);
   {$ENDIF DARAJA_LOGGING}
 
   

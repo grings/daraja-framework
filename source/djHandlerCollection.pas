@@ -94,7 +94,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjHandlerCollection.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjHandlerCollection);
   {$ENDIF DARAJA_LOGGING}
 
   FHandlers := TdjHandlers.Create;

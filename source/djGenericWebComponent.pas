@@ -113,7 +113,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjGenericWebComponent.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjGenericWebComponent);
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF LOG_CREATE}

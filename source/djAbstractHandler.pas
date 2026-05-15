@@ -76,7 +76,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjAbstractHandler.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjAbstractHandler);
   {$ENDIF DARAJA_LOGGING}
 end;
 

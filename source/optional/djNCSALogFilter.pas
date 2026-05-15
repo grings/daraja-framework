@@ -98,7 +98,7 @@ end;
 procedure TdjNCSALogFilter.Init;
 begin
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjNCSALogFilter.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjNCSALogFilter);
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF FPC}

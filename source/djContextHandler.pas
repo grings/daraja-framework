@@ -284,7 +284,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjContextHandler.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjContextHandler);
   {$ENDIF DARAJA_LOGGING}
 
   FContext := TdjContext.Create(ContextPath);

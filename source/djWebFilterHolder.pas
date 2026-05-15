@@ -135,7 +135,7 @@ begin
   FClass := WebFilterClass;
 
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjWebFilterHolder.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjWebFilterHolder);
   {$ENDIF DARAJA_LOGGING}
 end;
 

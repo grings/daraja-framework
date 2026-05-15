@@ -106,7 +106,7 @@ begin
   inherited;
 
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjDefaultWebComponent.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjDefaultWebComponent);
   {$ENDIF DARAJA_LOGGING}
 
   // copy the context path

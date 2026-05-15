@@ -120,7 +120,7 @@ begin
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjLifeCycle.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjLifeCycle);
   {$ENDIF DARAJA_LOGGING}
 
   CS := TCriticalSection.Create;

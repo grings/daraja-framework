@@ -210,7 +210,7 @@ begin
 
   // logging -----------------------------------------------------------------
 {$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger('dj.' + TdjHandlerWrapper.ClassName);
+  Logger := TdjLoggerFactory.GetLogger(TdjHandlerWrapper);
 {$ENDIF DARAJA_LOGGING}
 end;
 
