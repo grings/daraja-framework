@@ -100,6 +100,9 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value=".\Unittests.exe"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\..\..\Indy\Lib\Core"/>
       <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\Indy\Lib\Core;..\..\..\Indy\Lib\Protocols;..\..\..\Indy\Lib\System;..\..\..\slf4p\src\main"/>
