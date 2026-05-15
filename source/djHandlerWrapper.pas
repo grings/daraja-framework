@@ -49,7 +49,7 @@ type
    * This is primarily used to implement the Decorator pattern.
    *}
   TdjHandlerWrapper = class(TdjAbstractHandlerContainer)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

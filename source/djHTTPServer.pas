@@ -53,7 +53,7 @@ type
    * Inherits from Indy HTTP Server.
    *}
   TdjHTTPServer = class(TIdCustomHTTPServer)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

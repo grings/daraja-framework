@@ -51,7 +51,7 @@ type
    * exception is thrown or a positive response status is set.
    *}
   TdjHandlerList = class(TdjHandlerCollection)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

@@ -59,7 +59,7 @@ type
    * See TdjDefaultWebComponentTests for usage examples.
    *}
   TdjDefaultWebComponent = class(TdjWebComponent)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

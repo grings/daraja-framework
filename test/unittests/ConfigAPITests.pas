@@ -361,7 +361,7 @@ end;
 // TCmpWithInitV3 -----------------------------------------------------
 type
   TCmpWithInitv3 = class(TdjWebComponent)
-  private
+  strict private
     StaticContent: string;
   public
     procedure Init; override;
@@ -402,7 +402,7 @@ end;
 // TCmpWithInit -----------------------------------------------------
 type
   TCmpWithInit = class(TdjWebComponent)
-  private
+  strict private
     StaticContent: string;
   public
     procedure Init(const Config: IWebComponentConfig); override;
@@ -1091,7 +1091,7 @@ type
   { TTestFilterV3WithInit }
 
   TTestFilterV3WithInit = class(TdjWebFilter)
-  private
+  strict private
     FInitParam: string;
   public
     procedure Init; override;
@@ -1102,7 +1102,7 @@ type
   { TTestFilterWithInit }
 
   TTestFilterWithInit = class(TdjWebFilter)
-  private
+  strict private
     FInitParam: string;
   public
     procedure Init(const Config: IWebFilterConfig); override;
@@ -1113,7 +1113,7 @@ type
   { TFilterWithInitReadsContextConfiguration }
 
   TFilterWithInitReadsContextConfiguration = class(TdjWebFilter)
-  private
+  strict private
     StaticContent: string;
   public
     procedure Init(const Config: IWebFilterConfig); override;

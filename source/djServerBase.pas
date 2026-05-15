@@ -52,7 +52,7 @@ type
    * @sa TdjHandlerWrapper
    *}
   TdjServerBase = class(TdjHandlerWrapper, IHandlerContainer)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

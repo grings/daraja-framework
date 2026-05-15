@@ -51,7 +51,7 @@ type
    * @li OnDelete, for HTTP DELETE requests
    *}
   TdjWebComponent = class(TdjGenericWebComponent)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

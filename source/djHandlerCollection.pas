@@ -46,7 +46,7 @@ type
    * the response status or exceptions.
    *}
   TdjHandlerCollection = class(TdjAbstractHandlerContainer)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

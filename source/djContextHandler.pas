@@ -54,7 +54,7 @@ type
    * @implements IWriteableConfig
    *}
   TdjContext = class(TInterfacedObject, IContext, IWriteableConfig)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     ContextLogger: ILogger;
     {$ENDIF DARAJA_LOGGING}
@@ -94,7 +94,7 @@ type
    * Context handler.
    *}
   TdjContextHandler = class(TdjHandlerWrapper)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

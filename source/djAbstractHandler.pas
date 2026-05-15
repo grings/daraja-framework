@@ -44,7 +44,7 @@ type
    * \copydoc IHandler
    *}
   TdjAbstractHandler = class(TdjLifeCycle, IHandler)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

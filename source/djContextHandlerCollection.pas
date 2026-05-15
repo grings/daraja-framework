@@ -44,7 +44,7 @@ type
    * Multiple contexts with the same name are not allowed.
    *}
   TdjContextHandlerCollection = class(TdjHandlerList)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

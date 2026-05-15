@@ -53,7 +53,7 @@ type
    * as part of the Daraja framework.
    *}
   TdjGenericWebFilter = class(TInterfacedObject, IWebFilter)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

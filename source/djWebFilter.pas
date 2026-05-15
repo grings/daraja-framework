@@ -45,7 +45,7 @@ type
    * for a Web site.
    *}
   TdjWebFilter = class(TdjGenericWebFilter)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

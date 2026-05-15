@@ -49,7 +49,7 @@ type
    * Defines a generic Web Component.
    *}
   TdjGenericWebComponent = class(TInterfacedObject, IWebComponent)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

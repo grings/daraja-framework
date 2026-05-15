@@ -81,7 +81,7 @@ type
    * Basic server class for the Web Component framework.
    *}
   TdjServer = class(TdjServerBase)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

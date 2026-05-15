@@ -47,7 +47,7 @@ type
    * Instances of this class wrap a TdjHTTPServer component.
    *}
   TdjHTTPConnector = class(TdjAbstractConnector)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

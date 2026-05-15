@@ -46,13 +46,12 @@ type
    * Implements the IWebFilterChain interface to manage web filter chains.
    *}
   TdjWebFilterChain = class(TInterfacedObject, IWebFilterChain)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
     FChain: IWebFilterChain;
     FHolder: TdjWebFilterHolder;
-
     procedure Trace(const S: string);
   protected
     // IWebFilterChain

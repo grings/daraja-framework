@@ -48,7 +48,7 @@ type
    * objects of type TdjWebFilter.
    *}
   TdjWebFilterHolder = class(TdjGenericHolder<TdjWebFilter>)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

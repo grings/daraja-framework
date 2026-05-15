@@ -53,7 +53,7 @@ type
    * and passes incoming requests to the matching web component.
    *}
   TdjWebComponentHandler = class(TdjAbstractHandler)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
@@ -223,7 +223,7 @@ type
   { TChainEnd }
 
   TChainEnd = class(TInterfacedObject, IWebFilterChain)
-  private
+  strict private
     FWebComponentHolder: TdjWebComponentHolder;
   public
     constructor Create(Holder: TdjWebComponentHolder);

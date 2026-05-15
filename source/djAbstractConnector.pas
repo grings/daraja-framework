@@ -48,7 +48,7 @@ type
    * the connector.
    *}
   TdjAbstractConnector = class(TdjLifeCycle, IConnector)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
@@ -56,6 +56,7 @@ type
     FPort: Integer;
     FHost: string;
 
+  private
     {*
      * Log a trace message.
      *

@@ -44,7 +44,7 @@ type
    * Abstract LifeCycle implementation.
    *}
   TdjLifeCycle = class(TInterfacedObject, ILifeCycle)
-  private
+  strict private
     FStarted: Boolean;
     FStopped: Boolean;
 

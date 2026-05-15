@@ -43,12 +43,11 @@ type
   { THTTPTestCase }
 
   THTTPTestCase = class(TTestCase)
-  private
+  strict private
     {$IFDEF STRING_IS_ANSI}
     FDestEncoding: IIdTextEncoding;
     {$ENDIF}
     IdHTTP: TIdHTTP;
-
   protected
     procedure SetUp; override;
     procedure TearDown; override;

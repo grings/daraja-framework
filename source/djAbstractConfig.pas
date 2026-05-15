@@ -45,7 +45,7 @@ type
    * @implements IWriteableConfig
    *}
   TdjAbstractConfig = class(TInterfacedObject, IWriteableConfig, IContextConfig)
-  private
+  strict private
     {*
      * Initialization parameters.
      *}

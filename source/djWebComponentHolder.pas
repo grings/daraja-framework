@@ -45,7 +45,7 @@ type
    * Holds a WebComponent and configuration data.
    *}
   TdjWebComponentHolder = class(TdjGenericHolder<TdjWebComponent>)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}

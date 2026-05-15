@@ -48,7 +48,7 @@ type
    * Context Handler for Web Components (and Web Filters).
    *}
   TdjWebComponentContextHandler = class(TdjContextHandler)
-  private
+  strict private
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
