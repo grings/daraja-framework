@@ -256,6 +256,8 @@ begin
 end;
 
 procedure TdjServer.Add(Context: TdjWebComponentContextHandler);
+var
+  ContextPath: string;
 begin
   Trace('Add context ' + Context.ContextPath);
 
@@ -263,10 +265,10 @@ begin
   begin
     ContextNames.Add(Context.ContextPath);
   end else begin
-    raise EWebComponentException.CreateFmt('Context path "%s" is already registered.',
-      [Context.ContextPath]);
-
+    ContextPath := Context.ContextPath; // needed for exception message
     Context.Free; // avoid leak
+    raise EWebComponentException.CreateFmt('Context path "%s" is already registered.',
+      [ContextPath]);
   end;
 
   ContextHandlers.AddHandler(Context);
