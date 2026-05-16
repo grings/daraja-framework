@@ -196,10 +196,8 @@ begin
     on E: Exception do
     begin
       {$IFDEF DARAJA_LOGGING}
-      Logger.Warn(
-        Format('Could not start "%s". Init method raised %s with message "%s".', [
-        FClass.ClassName, E.ClassName, E.Message]),
-        E);
+      Logger.Warn('Could not start "%s". Init method raised %s with message "%s".', [
+        FClass.ClassName, E.ClassName, E.Message]);
       {$ENDIF DARAJA_LOGGING}
 
       Trace('Stop the Web Component  "' + Name + '"');
