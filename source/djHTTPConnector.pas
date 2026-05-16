@@ -163,15 +163,14 @@ begin
     Started := True;
 
     {$IFDEF DARAJA_LOGGING}
-    Logger.Info(Format('Accepting requests at %s', [HostAndPort]));
+    Logger.Info('Accepting requests at %s', [HostAndPort]);
     {$ENDIF DARAJA_LOGGING}
 
   except
     on E: Exception do
     begin
       {$IFDEF DARAJA_LOGGING}
-      Logger.Info(
-        Format('Could not start HTTP connector at %s', [HostAndPort]));
+      Logger.Info('Could not start HTTP connector at %s', [HostAndPort]);
       Logger.Error(E.Message, E);
       {$ENDIF DARAJA_LOGGING}
       raise;

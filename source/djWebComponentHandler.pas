@@ -405,8 +405,7 @@ begin
     AddMapping(Mapping);
 
     Trace(Format(rsCreateMappingForWebComponent,
-    [Mapping.WebComponentName,
-    Trim(UrlPattern)]));
+      [Mapping.WebComponentName, Trim(UrlPattern)]));
   end;
 
   // in both cases, add URL pattern
@@ -622,9 +621,8 @@ begin
     begin
       ExceptionMessageHTML := HTMLEncode(E.Message);
 
-      Msg :=
-        Format(rsExecutionOfMethodSServiceCausedAnExceptionOfTyp,
-        [Comp.ClassName, E.ClassName, ExceptionMessageHTML]);
+      Msg := Format(rsExecutionOfMethodSServiceCausedAnExceptionOfTyp,
+               [Comp.ClassName, E.ClassName, ExceptionMessageHTML]);
 
       if E is EIdHTTPProtocolException
       then
