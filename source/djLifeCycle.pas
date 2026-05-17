@@ -47,15 +47,10 @@ type
   strict private
     FStarted: Boolean;
     FStopped: Boolean;
-
     CS: TCriticalSection;
-
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
-    procedure Trace(const S: string);
-
     procedure SetStarted(const Value: Boolean);
     procedure SetStopped(const Value: Boolean);
 
@@ -159,15 +154,6 @@ begin
   FStarted := not Value;
 end;
 
-// logging
-
-procedure TdjLifeCycle.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 // methods
 
 procedure TdjLifeCycle.DoStart;
@@ -188,9 +174,9 @@ begin
   CS.Enter;
   try
     try
-      Trace('Starting ...');
+      // Trace('Starting ...');
       DoStart;
-      Trace('Started');
+      // Trace('Started');
       Started := True;
     except
       on E: Exception do
@@ -215,9 +201,9 @@ begin
   CS.Enter;
   try
     try
-      Trace('Stopping ...');
+      // Trace('Stopping ...');
       DoStop;
-      Trace('Stopped');
+      // Trace('Stopped');
       Stopped := True;
     except
       on E: Exception do

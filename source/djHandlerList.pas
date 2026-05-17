@@ -55,8 +55,6 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
-    procedure Trace(const S: string);
   protected
     // IHandler interface
     procedure Handle(const Target: string; Context: TdjServerContext;
@@ -91,7 +89,9 @@ procedure TdjHandlerList.Handle(const Target: string; Context: TdjServerContext;
 var
   H: IHandler;
 begin
-  Trace('Handle ' + Target);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Handle %s', [Target]);
+  {$ENDIF DARAJA_LOGGING}
 
   for H in FHandlers do
   begin
@@ -99,7 +99,10 @@ begin
 
     if (Response.ResponseNo > 0) then
     begin
-      Trace('Handled.');
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace('Handled %s', [Target]);
+      {$ENDIF DARAJA_LOGGING}
+
       Break;
     end;
   end;
@@ -107,7 +110,10 @@ begin
   // 404 if no context matches
   if Response.ResponseNo < 0 then
   begin
-    Trace('Not handled. Set ResponseNo to 404');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Not handled %s. Set ResponseNo to 404', [Target]);
+    {$ENDIF DARAJA_LOGGING}
+
     Response.ResponseNo := 404;
     Response.ContentText := Format(
       '<html> %d %s</html>',
@@ -115,13 +121,6 @@ begin
         Response.ResponseText
       ]);
   end;
-end;
-
-procedure TdjHandlerList.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
 end;
 
 end.

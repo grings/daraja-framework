@@ -91,7 +91,6 @@ type
     ConnectorList: TdjStrings;
     ContextHandlers: IHandlerContainer;
     ContextNames: TStrings;
-    procedure Trace(const S: string);
     procedure StartConnectors;
     procedure StopConnectors;
     procedure StopContextHandlers;
@@ -231,7 +230,7 @@ var
 begin
   ConnectorName := '[' + Connector.Host + ']:' + IntToStr(Connector.Port);
 
-  Trace('Add connector ' + ConnectorName);
+  // Trace('Add connector ' + ConnectorName);
 
   ConnectorMap.Add(ConnectorName, Connector);
   ConnectorList.Add(ConnectorName);
@@ -259,7 +258,9 @@ procedure TdjServer.Add(Context: TdjWebComponentContextHandler);
 var
   ContextPath: string;
 begin
-  Trace('Add context ' + Context.ContextPath);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Add context %s', [Context.ContextPath]);
+  {$ENDIF DARAJA_LOGGING}
 
   if ContextNames.IndexOf(Context.ContextPath) < 0 then
   begin
@@ -283,10 +284,12 @@ begin
   begin
     Connector := ConnectorMap[ConnectorName];
     Connector.Start;
-    Trace(Format('Connector %s started', [ConnectorName]));
-  end;
 
-  Trace('All connectors started');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Connector %s started', [ConnectorName]);
+    {$ENDIF DARAJA_LOGGING}
+  end;
+//  Trace('All connectors started');
 end;
 
 procedure TdjServer.StopConnectors;
@@ -304,13 +307,16 @@ begin
     begin
       Connector := ConnectorMap[ConnectorName];
       Connector.Stop;
-      Trace(Format('Connector %s stopped', [ConnectorName]));
+
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace('Connector %s stopped', [ConnectorName]);
+      {$ENDIF DARAJA_LOGGING}
     end;
 
   finally
     Keys.Free
   end;
-  Trace('All connectors stopped');
+  // Trace('All connectors stopped');
 end;
 
 procedure TdjServer.StopContextHandlers;
@@ -318,22 +324,15 @@ begin
   ContextHandlers.Stop;
 end;
 
-procedure TdjServer.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjServer.DoStart;
 begin
   CheckStarted;
-  Trace('Starting server');
+  // Trace('Starting server');
 
   // add default connector
   if ConnectorList.Count = 0 then
   begin
-    Trace('Add default connector');
+    // Trace('Add default connector');
     AddConnector(FDefaultHost, FDefaultPort);
   end;
 

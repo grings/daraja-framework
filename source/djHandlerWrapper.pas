@@ -53,13 +53,10 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
     FHandler: IHandler;
-
     // getter / setter
     function GetHandler: IHandler;
     procedure SetHandler(const Value: IHandler);
-    procedure Trace(const S: string);
   protected
     {*
      * Get a HTTP session.
@@ -134,7 +131,9 @@ begin
 
     Result := S.CreateSession(Context, Response, Request);
 
-    Trace('Created a session');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('New session created.');
+    {$ENDIF DARAJA_LOGGING}
   end;
 end;
 
@@ -209,15 +208,8 @@ begin
   inherited Create;
 
   // logging -----------------------------------------------------------------
-{$IFDEF DARAJA_LOGGING}
-  Logger := TdjLoggerFactory.GetLogger(TdjHandlerWrapper);
-{$ENDIF DARAJA_LOGGING}
-end;
-
-procedure TdjHandlerWrapper.Trace(const S: string);
-begin
   {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
+  Logger := TdjLoggerFactory.GetLogger(TdjHandlerWrapper);
   {$ENDIF DARAJA_LOGGING}
 end;
 

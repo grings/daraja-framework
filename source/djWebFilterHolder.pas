@@ -55,9 +55,7 @@ type
     FConfig: IWebFilterConfig;
     FClass: TdjWebFilterClass;
     FWebFilter: TdjWebFilter;
-
     function GetClass: TdjWebFilterClass;
-    procedure Trace(const S: string);
   protected
     // TdjLifeCycle overrides
     /// \private
@@ -159,13 +157,6 @@ begin
   (FConfig as IWriteableConfig).Add(Key, Value);
 end;
 
-procedure TdjWebFilterHolder.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 function TdjWebFilterHolder.GetClass: TdjWebFilterClass;
 begin
   Result := FClass;
@@ -181,11 +172,17 @@ begin
   Assert(FConfig.GetContext <> nil);
   Assert(FConfig.GetContext.GetContextConfig <> nil);
 
-  Trace('Create instance of class ' + FClass.ClassName);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Create instance of class ' + FClass.ClassName);
+  {$ENDIF DARAJA_LOGGING}
+
   FWebFilter := FClass.Create;
 
   try
-    Trace('Init Web Filter "' + Name + '"');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Init Web Filter "' + Name + '"');
+    {$ENDIF DARAJA_LOGGING}
+
     WebFilter.Init(FConfig);
   except
     on E: Exception do
@@ -195,7 +192,10 @@ begin
         FClass.ClassName, E.ClassName, E.Message]);
       {$ENDIF DARAJA_LOGGING}
 
-      Trace('Free the Web Filter  "' + Name + '"');
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace('Free the Web Filter  "' + Name + '"');
+      {$ENDIF DARAJA_LOGGING}
+
       WebFilter.Free;
       raise;
     end;
@@ -204,7 +204,7 @@ end;
 
 procedure TdjWebFilterHolder.DoStop;
 begin
-  Trace('Destroy instance of ' + FClass.ClassName);
+  // Trace('Destroy instance of ' + FClass.ClassName);
   try
     // Destroy (and ensure that Free will be called)
     try

@@ -72,7 +72,6 @@ type
 
     procedure SetFilters(Holders: TdjWebFilterHolders);
     procedure InitializeHolders(Holders: TdjWebFilterHolders);
-    procedure Trace(const S: string);
     function StripContext(const Doc: string): string;
     procedure CheckUniqueName(Holder: TdjWebComponentHolder);
     procedure CreateOrUpdateMapping(const UrlPattern: string; Holder:
@@ -314,7 +313,10 @@ begin
   except
     on E: EWebComponentException do
     begin
-      Trace(E.Message);
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace(E.Message);
+      {$ENDIF DARAJA_LOGGING}
+
       Result.Free;
       raise;
     end;
@@ -393,8 +395,10 @@ begin
   if Assigned(Mapping) then
   begin
     // already mapped
-    Trace(Format(rsUpdateMappingForWebComponent,
-      [WebComponentName, Trim(Mapping.UrlPatterns.CommaText), UrlPattern]));
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace(rsUpdateMappingForWebComponent,
+      [WebComponentName, Trim(Mapping.UrlPatterns.CommaText), UrlPattern]);
+    {$ENDIF DARAJA_LOGGING}
   end
   else
   begin
@@ -404,8 +408,10 @@ begin
 
     AddMapping(Mapping);
 
-    Trace(Format(rsCreateMappingForWebComponent,
-      [Mapping.WebComponentName, Trim(UrlPattern)]));
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace(rsCreateMappingForWebComponent,
+      [Mapping.WebComponentName, Trim(UrlPattern)]);
+    {$ENDIF DARAJA_LOGGING}
   end;
 
   // in both cases, add URL pattern
@@ -425,7 +431,9 @@ begin
       Msg := Format(
         rsTheWebComponentSCanNotBeAddedBecauseClassSIsAlr,
         [Holder.Name, CH.WebComponentClass.ClassName]);
-      Trace(Msg);
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace(Msg);
+      {$ENDIF DARAJA_LOGGING}
 
       raise EWebComponentException.Create(Msg); // todo test
     end;
@@ -445,7 +453,9 @@ begin
   except
     on E: EWebComponentException do
     begin
-      Trace(E.Message);
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace('AddWithMapping', E);
+      {$ENDIF DARAJA_LOGGING}
 
       raise EWebComponentException.CreateFmt(
         'Web Component %s is already installed in context %s with URL pattern %s',
@@ -533,13 +543,6 @@ begin
   end;
 end;
 
-procedure TdjWebComponentHandler.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjWebComponentHandler.ValidateMappingUrlPattern(const UrlPattern: string;
   Holder: TdjWebComponentHolder);
 begin
@@ -565,7 +568,9 @@ begin
   try
     if Matches.Count = 0 then
     begin
-      Trace(rsNoPathMapMatchFoundFor + ATarget);
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace(rsNoPathMapMatchFoundFor + ATarget);
+      {$ENDIF DARAJA_LOGGING}
     end
     else
     begin
@@ -575,7 +580,10 @@ begin
         Tmp := (Matches.Objects[I] as TdjWebComponentHolder);
         if Tmp.Started then
         begin
-          Trace('Match found: Web Component "' + Tmp.Name + '"');
+          {$IFDEF DARAJA_LOGGING}
+          Logger.Trace('Match found: Web Component "%s"', [Tmp.Name]);
+          {$ENDIF DARAJA_LOGGING}
+
           Result := Tmp;
           Break;
         end;

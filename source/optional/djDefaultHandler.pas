@@ -55,8 +55,6 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
-    procedure Trace(const S: string);
     function LoadRes: TStream;
     function HomePage: string;
   public
@@ -89,13 +87,11 @@ begin
   {$IFDEF DARAJA_LOGGING}
   Logger := TdjLoggerFactory.GetLogger(TdjDefaultHandler);
   {$ENDIF DARAJA_LOGGING}
-
-  
 end;
 
 destructor TdjDefaultHandler.Destroy;
 begin
-  
+
   inherited;
 end;
 
@@ -107,17 +103,16 @@ begin
   FileName := ExtractFilePath(ParamStr(0)) + 'favicon.ico';
   if FileExists(FileName) then
   begin
-    Trace('Load favicon.ico from file');
-    Result := TFileStream.Create(FileName, fmOpenRead);
-    Trace(IntToStr(Result.Size));
-  end;
-end;
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Load favicon.ico from file');
+    {$ENDIF DARAJA_LOGGING}
 
-procedure TdjDefaultHandler.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
+    Result := TFileStream.Create(FileName, fmOpenRead);
+
+    {$IFDEF DARAJA_LOGGING}
+    // Logger.Trace(IntToStr(Result.Size));
+    {$ENDIF DARAJA_LOGGING}
+  end;
 end;
 
 function TdjDefaultHandler.HomePage: string;
@@ -138,7 +133,10 @@ procedure TdjDefaultHandler.Handle(const Target: string; Context: TdjServerConte
 begin
   if (Response.ResponseNo = -1) then
   begin
-    Trace('Unhandled request.');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Unhandled request.');
+    {$ENDIF DARAJA_LOGGING}
+
     if Request.Document = '/' then
     begin
       // For requests to '/'

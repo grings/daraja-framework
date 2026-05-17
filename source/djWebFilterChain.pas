@@ -52,7 +52,6 @@ type
     {$ENDIF DARAJA_LOGGING}
     FChain: IWebFilterChain;
     FHolder: TdjWebFilterHolder;
-    procedure Trace(const S: string);
   protected
     // IWebFilterChain
     procedure DoFilter(Context: TdjServerContext; Request: TdjRequest; Response:
@@ -83,22 +82,18 @@ begin
   FChain := FilterChain;
 
   {$IFDEF LOG_CREATE}
-  Trace('Created');
+  Logger.Trace('Created');
   {$ENDIF}
 end;
 
 procedure TdjWebFilterChain.DoFilter(Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
-  Trace('DoFilter');
-  FHolder.DoFilter(Context, Request, Response, FChain);
-end;
-
-procedure TdjWebFilterChain.Trace(const S: string);
-begin
   {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
+  Logger.Trace('DoFilter');
   {$ENDIF DARAJA_LOGGING}
+
+  FHolder.DoFilter(Context, Request, Response, FChain);
 end;
 
 end.

@@ -101,8 +101,6 @@ type
     FContext: IContext;
     FConnectorNames: TStrings;
     FErrorHandler: IHandler;
-
-    procedure Trace(const S: string);
     function GetContextPath: string;
     procedure SetErrorHandler(const Value: IHandler);
   protected
@@ -314,13 +312,6 @@ begin
   Result := Context.Binding.IP + ':' + IntToStr(Context.Binding.Port);
 end;
 
-procedure TdjContextHandler.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 function TdjContextHandler.ContextMatches(const ConnectorName, Target: string): Boolean;
 begin
   Result := (Pos('/' + ContextPath + '/', Target) = 1)
@@ -369,7 +360,9 @@ end;
 procedure TdjContextHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
-  Trace('Handle ' + Target);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Handle %s', [Target]);
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 end.

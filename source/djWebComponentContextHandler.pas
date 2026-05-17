@@ -54,8 +54,6 @@ type
     {$ENDIF DARAJA_LOGGING}
     WebComponentHandler: TdjWebComponentHandler;
     AutoStartSession: Boolean;
-
-    procedure Trace(const S: string);
   protected
     // IHandler interface
     procedure Handle(const Target: string; Context: TdjServerContext;
@@ -173,25 +171,18 @@ begin
 
   inherited AddHandler(WebComponentHandler);
 
-{$IFDEF LOG_CREATE}
-  Trace('Created');
-{$ENDIF}
+  {$IFDEF LOG_CREATE}
+  Logger.Trace('Created');
+  {$ENDIF}
 end;
 
 destructor TdjWebComponentContextHandler.Destroy;
 begin
-{$IFDEF LOG_DESTROY}
-  Trace('Destroy');
-{$ENDIF}
+  {$IFDEF LOG_DESTROY}
+  Logger.Trace('Destroy');
+  {$ENDIF}
 
   inherited;
-end;
-
-procedure TdjWebComponentContextHandler.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
 end;
 
 function TdjWebComponentContextHandler.AddWebComponent(ComponentClass: TdjWebComponentClass;
@@ -204,8 +195,11 @@ begin
   if Holder = nil then
   begin
     // create new holder
-    Trace(Format('Add new holder for Web Component %s',
-      [ComponentClass.ClassName]));
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Add new holder for Web Component %s',
+      [ComponentClass.ClassName]);
+    {$ENDIF DARAJA_LOGGING}
+
     Holder := WebComponentHandler.AddWebComponent(ComponentClass, UrlPattern);
     // set context of Holder to propagate it to WebComponentConfig
     Holder.SetContext(GetCurrentContext);
@@ -213,8 +207,11 @@ begin
   else
   begin
     // add the URL pattern
-    Trace(Format('Holder found for Web Component %s, add URL pattern %s',
-      [ComponentClass.ClassName, UrlPattern]));
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Holder found for Web Component %s, add URL pattern %s',
+      [ComponentClass.ClassName, UrlPattern]);
+    {$ENDIF DARAJA_LOGGING}
+
     WebComponentHandler.AddWithMapping(Holder, UrlPattern);
   end;
 
@@ -274,7 +271,10 @@ end;
 procedure TdjWebComponentContextHandler.DoHandle(const Target: string;
   Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 begin
-  Trace('Context ' + ContextPath + ' handles ' + Target);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Context %s handles %s', [ContextPath, Target]);
+  {$ENDIF DARAJA_LOGGING}
+
   (WebComponentHandler as IHandler).Handle(Target, Context, Request, Response);
 end;
 

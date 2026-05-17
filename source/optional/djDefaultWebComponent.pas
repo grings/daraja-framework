@@ -65,7 +65,6 @@ type
     {$ENDIF DARAJA_LOGGING}
     ContextPath: string;
     StaticResourcePath: string;
-    procedure Trace(const S: string);
     function BuildAbsolutePath: string;
     procedure Validate;
     {*
@@ -91,13 +90,6 @@ uses
 
 { TdjDefaultWebComponent }
 
-procedure TdjDefaultWebComponent.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjDefaultWebComponent.Init(const Config: IWebComponentConfig);
 begin
   inherited;
@@ -120,14 +112,14 @@ procedure TdjDefaultWebComponent.Validate;
 begin
   if DirectoryExists(BuildAbsolutePath) then
   begin
-    Trace('Static content directory found: ' + StaticResourcePath);
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Static content directory found: %s', [StaticResourcePath]);
+    {$ENDIF DARAJA_LOGGING}
   end
   else
   begin
     {$IFDEF DARAJA_LOGGING}
-    Logger.Warn('Static content directory not found: ' + StaticResourcePath);
-    {$ELSE}
-    Trace('Static content directory not found: ' + StaticResourcePath);
+    Logger.Warn('Static content directory not found: %s', [StaticResourcePath]);
     {$ENDIF DARAJA_LOGGING}
 
     raise EWebComponentException.CreateFmt(
@@ -135,7 +127,7 @@ begin
       [StaticResourcePath]);
   end;
 
-  Trace('Initialized');
+  // Trace('Initialized');
 end;
 
 function TdjDefaultWebComponent.StripContext(const Doc: string): string;
@@ -190,16 +182,17 @@ begin
     begin
       Response.SmartServeFile(Context, Request, FileName);
     end;
-    Trace('Resource found: ' + RelFileName);
+
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Resource found: %s', [RelFileName]);
+    {$ENDIF DARAJA_LOGGING}
   end
   else
   begin
     Response.ResponseNo := 404;
 
     {$IFDEF DARAJA_LOGGING}
-    Logger.Warn('Resource not found: ' + RelFileName);
-    {$ELSE}
-    Trace('Resource not found: ' + RelFileName);
+    Logger.Warn('Resource not found: %s', [RelFileName]);
     {$ENDIF DARAJA_LOGGING}
   end;
 end;
