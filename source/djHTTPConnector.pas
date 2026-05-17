@@ -51,11 +51,8 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
     FHTTPServer: TdjHTTPServer;
     HostAndPort: string;
-
-    procedure Trace(const S: string);
     procedure OnCommand(AContext: TIdContext;
       ARequestInfo: TdjRequest; AResponseInfo: TdjResponse);
   protected
@@ -102,7 +99,7 @@ begin
 
   Assert(Assigned(Handler));
 
-  Trace('Configuring');
+  // Trace('Configuring');
 
   FHTTPServer := TdjHTTPServer.Create;
 end;
@@ -119,13 +116,6 @@ begin
   inherited;
 end;
 
-procedure TdjHTTPConnector.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjHTTPConnector.DoStart;
 var
   Binding: TIdSocketHandle;
@@ -133,7 +123,9 @@ begin
   CheckStarted;
 
   // create binding
-  Trace('Configuring HTTP server for ' + Host + ':' + IntToStr(Port));
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Configuring HTTP server for %s:%d', [Host, Port]);
+  {$ENDIF DARAJA_LOGGING}
 
   HTTPServer.Bindings.Clear;
 
@@ -145,11 +137,13 @@ begin
   // detect IPv6
   if Pos(':', Host) > 0 then
   begin
-    Trace('Using IPv6 binding');
+    // Trace('Using IPv6 binding');
     Binding.IPVersion := Id_IPv6;
   end;
 
-  Trace('Starting Indy HTTP server');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Starting Indy HTTP server');
+  {$ENDIF DARAJA_LOGGING}
 
   HostAndPort := 'http://' + Host + ':' + IntToStr(Port);
 
@@ -182,7 +176,10 @@ procedure TdjHTTPConnector.DoStop;
 begin
   if IsStarted then
   begin
-    Trace(Format('Stopping HTTP connector at %s', [HostAndPort]));
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Stopping HTTP connector at %s', [HostAndPort]);
+    {$ENDIF DARAJA_LOGGING}
+
     try
       HTTPServer.Active := False;
     except
@@ -200,7 +197,9 @@ procedure TdjHTTPConnector.OnCommand(AContext: TIdContext;
   ARequestInfo: TdjRequest; AResponseInfo: TdjResponse);
 begin
   try
-    Trace('OnCommand ' + ARequestInfo.Document);
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('OnCommand %s', [ARequestInfo.Document]);
+    {$ENDIF DARAJA_LOGGING}
 
     AResponseInfo.ResponseNo := -1;
 

@@ -48,7 +48,6 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-    procedure Trace(const S: string);
   protected
     // TdjLifeCycle overrides
     /// \private
@@ -80,21 +79,18 @@ begin
   {$ENDIF DARAJA_LOGGING}
 end;
 
-procedure TdjAbstractHandler.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjAbstractHandler.DoStart;
 begin
-  Trace('DoStart');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('DoStart');
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjAbstractHandler.DoStop;
 begin
-  Trace('DoStop');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('DoStop');
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 end.

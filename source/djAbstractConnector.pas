@@ -140,12 +140,12 @@ end;
 
 procedure TdjAbstractConnector.DoStart;
 begin
-  // Trace('Starting connector');
+  //
 end;
 
 procedure TdjAbstractConnector.DoStop;
 begin
-  // Trace('Stopping connector');
+  //
 end;
 
 procedure TdjAbstractConnector.SetHost(const Value: string);

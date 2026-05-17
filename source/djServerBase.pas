@@ -56,9 +56,6 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
-    procedure Trace(const S: string);
-
   protected
     // TdjLifeCycle overrides
     {*
@@ -125,25 +122,18 @@ begin
 
 end;
 
-procedure TdjServerBase.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjServerBase.DoStart;
 begin
   inherited;
 
-  Trace('Server started');
+  // Trace('Server started');
 end;
 
 procedure TdjServerBase.DoStop;
 begin
   inherited;
 
-  Trace('Server stopped');
+  // Trace('Server stopped');
 end;
 
 end.

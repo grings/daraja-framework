@@ -57,17 +57,12 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-
     // Exceptions
     procedure MyOnException(AContext: TIdContext; AException: Exception);
     procedure MyOnListenException(AThread: TIdListenerThread; AException: Exception);
-
     // Sessions
     procedure MySessionStart(Sender: TIdHTTPSession);
     procedure MySessionEnd(Sender: TIdHTTPSession);
-
-    procedure Trace(const S: string);
-
   protected
     {*
      * If the server has a connection limit (MaxConnections) set,
@@ -102,15 +97,15 @@ begin
   inherited Create;
 
   // logging -----------------------------------------------------------------
-{$IFDEF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
   Logger := TdjLoggerFactory.GetLogger(TdjHTTPServer);
-{$ENDIF DARAJA_LOGGING}
+  {$ENDIF DARAJA_LOGGING}
 
-  Trace('Configuring HTTP server');
+  // Trace('Configuring HTTP server');
 
-{$IFDEF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
   Logger.Info('Indy version: ' + GetIndyVersion);
-{$ENDIF DARAJA_LOGGING}
+  {$ENDIF DARAJA_LOGGING}
 
   // use HTTP 1.1 keep-alive by default
   KeepAlive := True;
@@ -120,7 +115,10 @@ begin
   SessionList := TIdHTTPDefaultSessionList.Create(Self);
   SessionState := True;
   SessionTimeOut := DEFAULT_SESSION_TIMEOUT; // 10 minutes
-  Trace('On-demand HTTP sessions enabled');
+
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('On-demand HTTP sessions enabled.');
+  {$ENDIF DARAJA_LOGGING}
 
   OnException := MyOnException;
   OnListenException:= MyOnListenException;
@@ -130,14 +128,7 @@ begin
 
   // register context class
   ContextClass := TdjServerContext;
-  Trace('Context class: ' + TdjServerContext.ClassName);
-end;
-
-procedure TdjHTTPServer.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
+  // Trace('Context class: ' + TdjServerContext.ClassName);
 end;
 
 procedure TdjHTTPServer.MyOnException(AContext: TIdContext;
@@ -146,36 +137,36 @@ begin
   if AException is EIdSilentException then Exit;
   if AException is EIdNotConnected then Exit;
 
-{$IFDEF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
   Logger.Warn(ClassName + ' (OnException): ' + AException.ClassName + ' '
     + AException.Message);
-{$ENDIF DARAJA_LOGGING}
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjHTTPServer.MyOnListenException(AThread: TIdListenerThread;
   AException: Exception);
 begin
-{$IFDEF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
   Logger.Warn(ClassName + ' (OnListenException): ' + AException.ClassName + ' '
     + AException.Message);
-{$ENDIF DARAJA_LOGGING}
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 procedure TdjHTTPServer.MySessionStart(Sender: TIdHTTPSession);
 begin
-  Trace('Session start ' + Sender.RemoteHost);
+  // Trace('Session start ' + Sender.RemoteHost);
 end;
 
 procedure TdjHTTPServer.MySessionEnd(Sender: TIdHTTPSession);
 begin
-  Trace('Session end ' + Sender.RemoteHost);
+  // Trace('Session end ' + Sender.RemoteHost);
 end;
 
 procedure TdjHTTPServer.DoMaxConnectionsExceeded(AIOHandler: TIdIOHandler);
 begin
-{$IFDEF DARAJA_LOGGING}
+  {$IFDEF DARAJA_LOGGING}
   Logger.Warn(ClassName + ': MaxConnections exceeded');
-{$ENDIF DARAJA_LOGGING}
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 end.

@@ -54,7 +54,6 @@ type
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
     FConfig: IWebComponentConfig;
-    procedure Trace(const S: string);
   public
     // IWebComponent interface todo protected?
     procedure Init(const Config: IWebComponentConfig); overload; virtual;
@@ -117,24 +116,17 @@ begin
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF LOG_CREATE}
-  Trace('Created');
+  Logger.Trace('Created');
   {$ENDIF}
 end;
 
 destructor TdjGenericWebComponent.Destroy;
 begin
   {$IFDEF LOG_DESTROY}
-  Trace('Destroy');
+  Logger.Trace('Destroy');
   {$ENDIF}
 
   inherited;
-end;
-
-procedure TdjGenericWebComponent.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
 end;
 
 function TdjGenericWebComponent.GetSession(Context: TdjServerContext;
@@ -148,7 +140,7 @@ begin
 
   if not Assigned(Result) and Create then
   begin
-    Trace('Create a new session');
+    // Trace('Create a new session');
     C := Context as TIdServerContext;
     S := C.Server as TIdCustomHTTPServer;
     Result := S.CreateSession(Context, Response, Request);
@@ -169,14 +161,15 @@ end;
 
 procedure TdjGenericWebComponent.Init;
 begin
-  Trace('Init');
   // this is a convenience method which can be overridden so that there is no need
   // to call inherited Init(config).
 end;
 
 procedure TdjGenericWebComponent.Init(const Config: IWebComponentConfig);
 begin
-  Trace('Init(Config)');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Init');
+  {$ENDIF DARAJA_LOGGING}
 
   Assert(Assigned(Config));
   Assert(Assigned(Config.GetContext));
@@ -191,7 +184,7 @@ end;
 procedure TdjGenericWebComponent.Service(Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
-  Trace('Service');
+  // Trace('Service');
 end;
 
 end.

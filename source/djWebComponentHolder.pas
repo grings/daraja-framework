@@ -52,8 +52,6 @@ type
     FConfig: IWebComponentConfig;
     FClass: TdjWebComponentClass;
     FWebComponent: TdjWebComponent;
-
-    procedure Trace(const S: string);
     function GetWebComponent: TdjWebComponent;
     function GetClass: TdjWebComponentClass;
   protected
@@ -141,13 +139,6 @@ begin
   inherited;
 end;
 
-procedure TdjWebComponentHolder.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 function TdjWebComponentHolder.GetClass: TdjWebComponentClass;
 begin
   Result := FClass;
@@ -186,11 +177,17 @@ begin
   Assert(FConfig.GetContext <> nil);
   Assert(FConfig.GetContext.GetContextConfig <> nil);
 
-  Trace('Create instance of class ' + FClass.ClassName);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Create instance of class %s', [FClass.ClassName]);
+  {$ENDIF DARAJA_LOGGING}
+
   FWebComponent := FClass.Create;
 
   try
-    Trace('Init Web Component "' + Name + '"');
+    {$IFDEF DARAJA_LOGGING}
+    Logger.Trace('Init Web Component "%s"', [Name]);
+    {$ENDIF DARAJA_LOGGING}
+
     WebComponent.Init(FConfig);
   except
     on E: Exception do
@@ -200,7 +197,9 @@ begin
         FClass.ClassName, E.ClassName, E.Message]);
       {$ENDIF DARAJA_LOGGING}
 
-      Trace('Stop the Web Component  "' + Name + '"');
+      {$IFDEF DARAJA_LOGGING}
+      Logger.Trace('Stop the Web Component "%s"', [Name]);
+      {$ENDIF DARAJA_LOGGING}
 
       Self.Stop;
     end;
@@ -209,7 +208,7 @@ end;
 
 procedure TdjWebComponentHolder.DoStop;
 begin
-  Trace('Destroy instance of ' + FClass.ClassName);
+  // Trace('Destroy instance of ' + FClass.ClassName);
   try
     WebComponent.Free;
   except

@@ -50,7 +50,6 @@ type
     {$IFDEF DARAJA_LOGGING}
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
-    procedure Trace(const S: string);
   protected
      {*
       * The handler collection.
@@ -127,13 +126,6 @@ begin
   FHandlers.Remove(Handler);
 end;
 
-procedure TdjHandlerCollection.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjHandlerCollection.DoStart;
 var
   H: IHandler;
@@ -192,7 +184,10 @@ procedure TdjHandlerCollection.Handle(const Target: string; Context: TdjServerCo
 var
   H: IHandler;
 begin
-  Trace('Handle ' + Target);
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Handle %s', [Target]);
+  {$ENDIF DARAJA_LOGGING}
+
   if IsStarted then
   begin
     for H in FHandlers do

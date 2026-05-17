@@ -58,7 +58,6 @@ type
     Logger: ILogger;
     {$ENDIF DARAJA_LOGGING}
     FConfig: IWebFilterConfig;
-    procedure Trace(const S: string);
   public
     // IWebFilter interface todo protected?
     procedure Init(const Config: IWebFilterConfig); overload; virtual;
@@ -111,28 +110,29 @@ begin
   {$ENDIF DARAJA_LOGGING}
 
   {$IFDEF LOG_CREATE}
-  Trace('Created');
+  Logger.Trace('Created');
   {$ENDIF}
 end;
 
 destructor TdjGenericWebFilter.Destroy;
 begin
   {$IFDEF LOG_DESTROY}
-  Trace('Destroy');
+  Logger.Trace('Destroy');
   {$ENDIF}
   inherited;
 end;
 
 procedure TdjGenericWebFilter.Init;
 begin
-  Trace('Init');
   // this is a convenience method which can be overridden so that there is no need
   // to call inherited Init(config).
 end;
 
 procedure TdjGenericWebFilter.Init(const Config: IWebFilterConfig);
 begin
-  Trace('Init');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('Init');
+  {$ENDIF DARAJA_LOGGING}
 
   Assert(Assigned(Config));
   Assert(Assigned(Config.GetContext));
@@ -144,17 +144,12 @@ begin
   Init;
 end;
 
-procedure TdjGenericWebFilter.Trace(const S: string);
-begin
-  {$IFDEF DARAJA_LOGGING}
-  Logger.Trace(S);
-  {$ENDIF DARAJA_LOGGING}
-end;
-
 procedure TdjGenericWebFilter.DoFilter(Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse; const Chain: IWebFilterChain);
 begin
-  Trace('DoFilter');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('DoFilter');
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 function TdjGenericWebFilter.GetWebFilterConfig: IWebFilterConfig;
@@ -169,7 +164,9 @@ end;
 
 procedure TdjGenericWebFilter.DestroyFilter;
 begin
-  Trace('DestroyFilter');
+  {$IFDEF DARAJA_LOGGING}
+  Logger.Trace('DestroyFilter');
+  {$ENDIF DARAJA_LOGGING}
 end;
 
 end.
