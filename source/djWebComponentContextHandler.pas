@@ -67,26 +67,26 @@ type
      *}
     procedure DoHandle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse);
-    {*
-     * Add a Web Component.
-     *
-     * @param Holder holds information about the Web Component
-     * @param UrlPattern path specification
-     * @throws EWebComponentException if the Web Component can not be added
-     * @deprecated for removal
-     *}
-    procedure AddWebComponent(Holder: TdjWebComponentHolder;
-      const UrlPattern: string); overload;
-    {*
-     * Add a Web Filter Holder.
-     *
-     * @param Holder holds information about the Web Filter
-     * @param UrlPattern path specification
-     * @throws Exception if the Web Filter can not be added
-     * @deprecated for removal
-     *}
-    procedure AddWebFilter(Holder: TdjWebFilterHolder;
-      const UrlPattern: string); overload; deprecated;
+//    {*
+//     * Add a Web Component.
+//     *
+//     * @param Holder holds information about the Web Component
+//     * @param UrlPattern path specification
+//     * @throws EWebComponentException if the Web Component can not be added
+//     * @deprecated for removal
+//     *}
+//    procedure AddWebComponent(Holder: TdjWebComponentHolder;
+//      const UrlPattern: string); overload;
+//    {*
+//     * Add a Web Filter Holder.
+//     *
+//     * @param Holder holds information about the Web Filter
+//     * @param UrlPattern path specification
+//     * @throws Exception if the Web Filter can not be added
+//     * @deprecated for removal
+//     *}
+//    procedure AddWebFilter(Holder: TdjWebFilterHolder;
+//      const UrlPattern: string); overload; deprecated;
   public
     {*
      * Constructor.
@@ -224,33 +224,33 @@ begin
   Result := AddWebComponent(ComponentClass, UrlPattern);
 end;
 
-procedure TdjWebComponentContextHandler.AddWebComponent(Holder: TdjWebComponentHolder;
-  const UrlPattern: string);
-begin
-  // Holder can not be reused.
-  // Create a new Holder if a Web Component should handle other UrlPatterns.
-  if Holder.GetContext <> nil then
-  begin
-    raise EWebComponentException.CreateFmt(
-      'Web Component %s is already installed in context %s',
-      [Holder.WebComponentClass.ClassName, Holder.GetContext.GetContextPath]
-      );
-  end;
+//procedure TdjWebComponentContextHandler.AddWebComponent(Holder: TdjWebComponentHolder;
+//  const UrlPattern: string);
+//begin
+//  // Holder can not be reused.
+//  // Create a new Holder if a Web Component should handle other UrlPatterns.
+//  if Holder.GetContext <> nil then
+//  begin
+//    raise EWebComponentException.CreateFmt(
+//      'Web Component %s is already installed in context %s',
+//      [Holder.WebComponentClass.ClassName, Holder.GetContext.GetContextPath]
+//      );
+//  end;
+//
+//  // set context of Holder to propagate it to WebComponentConfig
+//  Holder.SetContext(Self.GetCurrentContext);
+//
+//  WebComponentHandler.AddWithMapping(Holder, UrlPattern);
+//end;
 
-  // set context of Holder to propagate it to WebComponentConfig
-  Holder.SetContext(Self.GetCurrentContext);
-
-  WebComponentHandler.AddWithMapping(Holder, UrlPattern);
-end;
-
-procedure TdjWebComponentContextHandler.AddWebFilter(Holder: TdjWebFilterHolder;
-  const UrlPattern: string);
-begin
-  // set context of Holder to propagate it to WebFilterConfig
-  Holder.SetContext(Self.GetCurrentContext);
-
-  WebComponentHandler.AddWebFilter(Holder, UrlPattern);
-end;
+//procedure TdjWebComponentContextHandler.AddWebFilter(Holder: TdjWebFilterHolder;
+//  const UrlPattern: string);
+//begin
+//  // set context of Holder to propagate it to WebFilterConfig
+//  Holder.SetContext(Self.GetCurrentContext);
+//
+//  WebComponentHandler.AddWebFilter(Holder, UrlPattern);
+//end;
 
 function TdjWebComponentContextHandler.AddWebFilter(
   FilterClass: TdjWebFilterClass; const UrlPattern: string): TdjWebFilterHolder;
